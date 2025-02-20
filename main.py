@@ -1,18 +1,21 @@
-import io
 import sys
 from random import randrange as rr
 
-from PyQt6 import uic
-from PyQt6.QtCore import Qt, QRectF, QPointF
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QPainter, QColor, QPolygonF
+from PyQt6.QtGui import QPainter, QColor
+
+from ui import Ui_MainWindow
 
 
-class UselessApp(QMainWindow):
+class UselessInterface():
+    pass
+
+
+class UselessApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
 
         self.shapeButton.clicked.connect(self.create_shape)
 
@@ -25,7 +28,7 @@ class UselessApp(QMainWindow):
         qp = QPainter()
 
         qp.begin(self)
-        qp.setPen(QColor(255, 255, 0))
+        qp.setPen(QColor(rr(0, 256), rr(0, 256), rr(0, 256)))
         qp.drawEllipse(rr(0, 800 - d), rr(0, 800 - d), d, d)
 
         qp.end()
